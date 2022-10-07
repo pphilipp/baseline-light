@@ -1,12 +1,13 @@
-package com.poid.baseline.light.domain
+package com.poid.baseline.light.domain.use_case
 
-import com.poid.baseline.light.data.Repository
+import com.poid.baseline.light.domain.abstraction.IRepository
+import com.poid.baseline.light.domain.abstraction.UseCase
 import com.poid.baseline.light.presentation.ui_model.SomeUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class GetSmtUseCase(
-    private val repository: Repository
+    private val repository: IRepository
 ) : UseCase<Flow<SomeUiModel>, GetSmtUseCase.UseCaseParams> {
 
     data class UseCaseParams(val param: Int)

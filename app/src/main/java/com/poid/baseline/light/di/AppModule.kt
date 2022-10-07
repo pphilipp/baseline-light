@@ -2,7 +2,8 @@ package com.poid.baseline.light.di
 
 import com.poid.baseline.light.data.Repository
 import com.poid.baseline.light.data.data_source.ApiDataSource
-import com.poid.baseline.light.domain.GetSmtUseCase
+import com.poid.baseline.light.domain.abstraction.IRepository
+import com.poid.baseline.light.domain.use_case.GetSmtUseCase
 import com.poid.baseline.light.presentation.SomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -18,7 +19,7 @@ val appModule = module {
      */
 
     // Repositories
-    single { Repository(get()) }
+    single<IRepository> { Repository(get()) }
 
     // domain
     single { GetSmtUseCase(get()) }
