@@ -6,6 +6,7 @@ import com.poid.baseline.light.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext
+import org.koin.fileProperties
 
 class App: Application() {
     override fun onCreate() {
@@ -20,8 +21,7 @@ class App: Application() {
             androidContext(this@App)
             modules(
                 appModule,
-                networkModule,
-//                dbModule
+                networkModule
             )
         }
     }
