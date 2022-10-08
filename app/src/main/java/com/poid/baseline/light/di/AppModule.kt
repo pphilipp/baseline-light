@@ -5,8 +5,9 @@ import com.poid.baseline.light.data.data_source.ApiDataSource
 import com.poid.baseline.light.domain.abstraction.IRepository
 import com.poid.baseline.light.domain.abstraction.UseCase
 import com.poid.baseline.light.domain.use_case.GetSmtUseCase
-import com.poid.baseline.light.presentation.SomeViewModel
-import com.poid.baseline.light.presentation.ui_model.SomeUiModel
+import com.poid.baseline.light.presentation.SharedViewModel
+import com.poid.baseline.light.presentation.ui_model.MasterListItemUiModel
+
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -25,7 +26,7 @@ val appModule = module {
     single<IRepository> { Repository(get()) }
 
     // domain
-    single<UseCase<Flow<SomeUiModel>, GetSmtUseCase.UseCaseParams>> { GetSmtUseCase(get()) }
+    single<UseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams>> { GetSmtUseCase(get()) }
 
     //presentation mappers
     /**
@@ -33,5 +34,5 @@ val appModule = module {
      */
 
     // ViewModel
-    viewModel { SomeViewModel( get()) }
+    viewModel { SharedViewModel( get()) }
 }

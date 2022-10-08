@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Baseline Light</string>
+    <string name="content_empty">Empty content</string>
 </resources>
