@@ -33,27 +33,29 @@ val appModule = module {
     single<IRepository> { Repository(get(), get()) }
 
     // domain
-    single<IUseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams>>(
+    factory<IUseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams>>(
         named("GetSmtUseCase")
     ) {
         GetSmtUseCase(get())
     }
-    single<IUseCase<Flow<ConnectionStateModel>, Nothing?>>(
+    factory<IUseCase<Flow<ConnectionStateModel>, Nothing?>>(
         named("ObserveConnectivityManagerSateUseCase")
     ) {
         ObserveConnectivityManagerSateUseCase(get(), get())
     }
 
     // domain mappers
-    single<IDomainMapper<Boolean, ConnectionStateModel>>(
+    factory<IDomainMapper<Boolean, ConnectionStateModel>>(
         named("NetworkStateMapper")
     ) {
         NetworkStateMapper()
     }
 
     // ViewModel
-    viewModel { SharedViewModel(
-        DefaultDispatchers(),
-        get(named("GetSmtUseCase"))
-    ) }
+    viewModel {
+        SharedViewModel(
+            DefaultDispatchers(),
+            get(named("GetSmtUseCase"))
+        )
+    }
 }

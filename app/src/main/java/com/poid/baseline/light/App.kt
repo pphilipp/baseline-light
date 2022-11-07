@@ -9,7 +9,7 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext
 import org.koin.fileProperties
 
-class App: Application() {
+class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
@@ -20,11 +20,7 @@ class App: Application() {
         GlobalContext.startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(
-                appModule,
-                networkModule,
-                systemServicesModule
-            )
+            modules(appModule + networkModule + systemServicesModule)
         }
     }
 }
