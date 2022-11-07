@@ -1,4 +1,4 @@
-package com.poid.baseline.light.data
+package com.poid.baseline.light.data.repository
 
 import com.poid.baseline.light.data.data_source.ApiDataSource
 import com.poid.baseline.light.domain.abstraction.IRepository

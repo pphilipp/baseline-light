@@ -1,6 +1,6 @@
 package com.poid.baseline.light.di
 
-import com.poid.baseline.light.data.Repository
+import com.poid.baseline.light.data.repository.Repository
 import com.poid.baseline.light.data.data_source.ApiDataSource
 import com.poid.baseline.light.domain.abstraction.IRepository
 import com.poid.baseline.light.domain.abstraction.UseCase
