@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.poid.baseline.light.di.DispatcherProvider
-import com.poid.baseline.light.domain.abstraction.UseCase
+import com.poid.baseline.light.domain.abstraction.IUseCase
 import com.poid.baseline.light.domain.use_case.GetSmtUseCase
 import com.poid.baseline.light.presentation.ui_model.RequestState
 import com.poid.baseline.light.presentation.ui_model.MasterListItemUiModel
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class SharedViewModel(
     private val dispatcher: DispatcherProvider,
-    private val getSomeUseCase: UseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams>,
+    private val getSomeUseCase: IUseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams>,
 ) : ViewModel() {
 
     val titleMaster: MutableState<String> = mutableStateOf("")

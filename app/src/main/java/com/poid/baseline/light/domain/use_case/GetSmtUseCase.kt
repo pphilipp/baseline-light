@@ -1,14 +1,14 @@
 package com.poid.baseline.light.domain.use_case
 
 import com.poid.baseline.light.domain.abstraction.IRepository
-import com.poid.baseline.light.domain.abstraction.UseCase
+import com.poid.baseline.light.domain.abstraction.IUseCase
 import com.poid.baseline.light.presentation.ui_model.MasterListItemUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class GetSmtUseCase(
     private val repository: IRepository
-) : UseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams> {
+) : IUseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams> {
 
     data class UseCaseParams(val param: Int)
 
