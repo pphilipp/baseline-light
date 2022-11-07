@@ -4,6 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.poid.baseline.light.di.DispatcherProvider
 import com.poid.baseline.light.domain.abstraction.UseCase
 import com.poid.baseline.light.domain.use_case.GetSmtUseCase
 import com.poid.baseline.light.presentation.ui_model.RequestState
@@ -15,7 +16,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SharedViewModel(
-    private val getSomeUseCase: UseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams>
+    private val dispatcher: DispatcherProvider,
+    private val getSomeUseCase: UseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams>,
 ) : ViewModel() {
 
     val titleMaster: MutableState<String> = mutableStateOf("")
@@ -32,7 +34,7 @@ class SharedViewModel(
     fun fetchMasterContent() {
         _masterListFlow.value = RequestState.Loading
 
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher.main) {
             try {
                 getSomeUseCase.execute(
                     GetSmtUseCase.UseCaseParams(0)

@@ -26,7 +26,9 @@ val appModule = module {
     single<IRepository> { Repository(get()) }
 
     // domain
-    single<UseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams>> { GetSmtUseCase(get()) }
+    single<UseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams>> {
+        GetSmtUseCase(get())
+    }
 
     //presentation mappers
     /**
@@ -34,5 +36,5 @@ val appModule = module {
      */
 
     // ViewModel
-    viewModel { SharedViewModel( get()) }
+    viewModel { SharedViewModel(DefaultDispatchers(), get()) }
 }
