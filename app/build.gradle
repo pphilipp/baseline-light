@@ -71,7 +71,6 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
     //di
-    implementation "io.insert-koin:koin-core:$koin_version"
     implementation "io.insert-koin:koin-android:$koin_version"
     // network
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
