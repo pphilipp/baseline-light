@@ -1,4 +1,4 @@
-package com.poid.baseline.light.domain.mapper
+package com.poid.baseline.light.data.mapper
 
 import com.poid.baseline.light.domain.abstraction.IDomainMapper
 import com.poid.baseline.light.domain.model.ConnectionStateModel

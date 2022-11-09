@@ -17,26 +17,26 @@ import com.poid.baseline.light.presentation.reusable_content.NoInternetContent
 import com.poid.baseline.light.presentation.reusable_content.ProgressContent
 import com.poid.baseline.light.presentation.ui.theme.DetailsItemBackgroundColor
 import com.poid.baseline.light.presentation.ui.theme.DetailsItemTextColor
-import com.poid.baseline.light.presentation.ui_model.RequestState
+import com.poid.baseline.light.presentation.ui_model.RequestUiState
 import com.poid.baseline.light.presentation.ui_model.MasterListItemUiModel
 
 @Composable
 fun MasterContent(
     paddingValues: PaddingValues,
-    requestState: RequestState<List<MasterListItemUiModel>>,
+    requestState: RequestUiState<List<MasterListItemUiModel>>,
     navigateToDetailsScreen: (detailsId: String) -> Unit
 ) {
     when (requestState) {
-        RequestState.Idle -> {}
-        RequestState.Loading -> ProgressContent()
-        is RequestState.Success -> {
+        RequestUiState.Idle -> {}
+        RequestUiState.Loading -> ProgressContent()
+        is RequestUiState.Success -> {
             if (requestState.data.isEmpty()) {
                 EmptyContent()
             } else {
                 ShowMasterContent(requestState.data, navigateToDetailsScreen)
             }
         }
-        is RequestState.Error -> {
+        is RequestUiState.Error -> {
             when (requestState.error) {
                 is NoConnectivityException -> {
                     NoInternetContent(

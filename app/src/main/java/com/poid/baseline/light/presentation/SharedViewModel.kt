@@ -9,7 +9,7 @@ import com.poid.baseline.light.di.DispatcherProvider
 import com.poid.baseline.light.domain.abstraction.IUseCase
 import com.poid.baseline.light.domain.model.ConnectionStateModel
 import com.poid.baseline.light.domain.use_case.GetSmtUseCase
-import com.poid.baseline.light.presentation.ui_model.RequestState
+import com.poid.baseline.light.presentation.ui_model.RequestUiState
 import com.poid.baseline.light.presentation.ui_model.MasterListItemUiModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -24,12 +24,12 @@ class SharedViewModel(
     val titleDetails: MutableState<String> = mutableStateOf("Details")
 
     private val _masterListFlow =
-        MutableStateFlow<RequestState<List<MasterListItemUiModel>>>(RequestState.Idle)
-    val masterListFlow: StateFlow<RequestState<List<MasterListItemUiModel>>> =
+        MutableStateFlow<RequestUiState<List<MasterListItemUiModel>>>(RequestUiState.Idle)
+    val masterListFlow: StateFlow<RequestUiState<List<MasterListItemUiModel>>> =
         _masterListFlow.asStateFlow()
 
-    private val _detailsFlow = MutableStateFlow<RequestState<String>>(RequestState.Idle)
-    val detailsFlow: StateFlow<RequestState<String>> = _detailsFlow.asStateFlow()
+    private val _detailsFlow = MutableStateFlow<RequestUiState<String>>(RequestUiState.Idle)
+    val detailsFlow: StateFlow<RequestUiState<String>> = _detailsFlow.asStateFlow()
 
     private val _connectionState = MutableStateFlow<Pair<ConnectionStateModel, Boolean>>(
         ConnectionStateModel.Idle to false
@@ -49,18 +49,18 @@ class SharedViewModel(
     }
 
     fun fetchMasterContent() {
-        _masterListFlow.value = RequestState.Loading
+        _masterListFlow.value = RequestUiState.Loading
 
         viewModelScope.launch(dispatcher.main) {
             try {
                 getSomeUseCase
                     .execute(GetSmtUseCase.UseCaseParams(0))
                     .collect {
-                        _masterListFlow.value = RequestState.Success(data = it)
+                        _masterListFlow.value = RequestUiState.Success(data = it)
                         titleMaster.value = "Master list size - ${it.size}"
                     }
             } catch (e: Throwable) {
-                _masterListFlow.value = RequestState.Error(e)
+                _masterListFlow.value = RequestUiState.Error(e)
             }
 
         }

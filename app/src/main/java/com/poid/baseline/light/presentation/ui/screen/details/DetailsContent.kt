@@ -16,15 +16,15 @@ import com.poid.baseline.light.presentation.ui_model.*
 @Composable
 fun DetailsContent(
     paddingValues: PaddingValues,
-    requestState: RequestState<String>
+    requestState: RequestUiState<String>
 ) {
     when (requestState) {
-        RequestState.Idle -> {}
-        RequestState.Loading -> {}
-        is RequestState.Success -> {
+        RequestUiState.Idle -> {}
+        RequestUiState.Loading -> {}
+        is RequestUiState.Success -> {
             ShowDetailsContent(requestState.data)
         }
-        is RequestState.Error -> {
+        is RequestUiState.Error -> {
             EmptyContent()
         }
 

@@ -6,13 +6,12 @@ import com.poid.baseline.light.data.data_source.SystemServicesDataSource
 import com.poid.baseline.light.domain.abstraction.IDomainMapper
 import com.poid.baseline.light.domain.abstraction.IRepository
 import com.poid.baseline.light.domain.abstraction.IUseCase
-import com.poid.baseline.light.domain.mapper.NetworkStateMapper
+import com.poid.baseline.light.data.mapper.NetworkStateMapper
 import com.poid.baseline.light.domain.model.ConnectionStateModel
 import com.poid.baseline.light.domain.use_case.GetSmtUseCase
 import com.poid.baseline.light.domain.use_case.ObserveConnectivityManagerSateUseCase
 import com.poid.baseline.light.presentation.SharedViewModel
 import com.poid.baseline.light.presentation.ui_model.MasterListItemUiModel
-
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
