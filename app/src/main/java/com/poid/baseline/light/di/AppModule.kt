@@ -30,23 +30,31 @@ val appModule = module {
      */
 
     // Repositories
-    single<IRepository> { Repository(get(), get()) }
+    single<IRepository> {
+        Repository(
+            apiDataSource = get(),
+            systemServicesDataSource = get()
+        )
+    }
 
     // domain
     factory<IUseCase<Flow<List<MasterListItemUiModel>>, GetSmtUseCase.UseCaseParams>>(
-        named("GetSmtUseCase")
+        named(GetSmtUseCase::class.java.name)
     ) {
         GetSmtUseCase(get())
     }
     factory<IUseCase<Flow<ConnectionStateModel>, Nothing?>>(
-        named("ObserveConnectivityManagerSateUseCase")
+        named(ObserveConnectivityManagerSateUseCase::class.java.name)
     ) {
-        ObserveConnectivityManagerSateUseCase(get(), get())
+        ObserveConnectivityManagerSateUseCase(
+            repository = get(),
+            mapper = get(named(NetworkStateMapper::class.java.name))
+        )
     }
 
     // domain mappers
     factory<IDomainMapper<Boolean, ConnectionStateModel>>(
-        named("NetworkStateMapper")
+        named(NetworkStateMapper::class.java.name)
     ) {
         NetworkStateMapper()
     }
@@ -54,8 +62,9 @@ val appModule = module {
     // ViewModel
     viewModel {
         SharedViewModel(
-            DefaultDispatchers(),
-            get(named("GetSmtUseCase"))
+            dispatcher = DefaultDispatchers(),
+            getSomeUseCase = get(named(GetSmtUseCase::class.java.name)),
+            observeConnectivityManagerSateUseCase = get(named(ObserveConnectivityManagerSateUseCase::class.java.name))
         )
     }
 }
