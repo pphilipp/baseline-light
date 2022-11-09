@@ -30,8 +30,6 @@ fun MasterScreen(
             MasterAppBar(sharedViewModel = sharedViewModel)
         },
         content = { paddingValues ->
-            paddingValues
-
             MasterContent(
                 paddingValues = paddingValues,
                 requestState = masterList,
@@ -42,7 +40,6 @@ fun MasterScreen(
                 connectionState,
                 coroutineScope,
                 scaffoldState
-
             ) {
                 sharedViewModel.markConnectionStateAsShown()
             }

@@ -12,6 +12,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.poid.baseline.light.data.remote.NoConnectivityException
+import com.poid.baseline.light.presentation.reusable_content.NoInternetContent
+import com.poid.baseline.light.presentation.reusable_content.ProgressContent
 import com.poid.baseline.light.presentation.ui.theme.DetailsItemBackgroundColor
 import com.poid.baseline.light.presentation.ui.theme.DetailsItemTextColor
 import com.poid.baseline.light.presentation.ui_model.RequestState
@@ -25,7 +28,7 @@ fun MasterContent(
 ) {
     when (requestState) {
         RequestState.Idle -> {}
-        RequestState.Loading -> {}
+        RequestState.Loading -> ProgressContent()
         is RequestState.Success -> {
             if (requestState.data.isEmpty()) {
                 EmptyContent()
@@ -34,7 +37,17 @@ fun MasterContent(
             }
         }
         is RequestState.Error -> {
-            EmptyContent()
+            when (requestState.error) {
+                is NoConnectivityException -> {
+                    NoInternetContent(
+                        modifier = Modifier.padding(paddingValues),
+                        exception = requestState.error.message
+                    )
+                }
+                else -> {
+                    EmptyContent()
+                }
+            }
         }
     }
 }
