@@ -4,17 +4,20 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import com.poid.baseline.light.domain.abstraction.IDomainMapper
+import com.poid.baseline.light.domain.model.ConnectionStateModel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
 class SystemServicesDataSource(
     private val connectivityManager: ConnectivityManager,
+    private val mapper: IDomainMapper<Boolean, ConnectionStateModel>
 ) {
 
-    fun observeIsNetworkConnectionExist(): Flow<Boolean> = callbackFlow {
+    fun observeIsNetworkConnectionExist(): Flow<ConnectionStateModel> = callbackFlow {
         val callback = networkCallback { connectionState ->
-            trySend(connectionState)
+            trySend(mapper.map(connectionState))
         }
 
         val networkRequest = NetworkRequest.Builder()
@@ -24,7 +27,7 @@ class SystemServicesDataSource(
         connectivityManager.registerNetworkCallback(networkRequest, callback)
 
         val currentState = getCurrentConnectivityState(connectivityManager)
-        trySend(currentState)
+        trySend(mapper.map(currentState))
 
         awaitClose {
             connectivityManager.unregisterNetworkCallback(callback)

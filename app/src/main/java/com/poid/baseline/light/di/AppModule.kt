@@ -21,7 +21,9 @@ val appModule = module {
 
     //DataSource
     single { ApiDataSource(get()) }
-    single { SystemServicesDataSource(get()) }
+    single { SystemServicesDataSource(
+        connectivityManager = get(),
+        get(named(NetworkStateMapper::class.java.name))) }
 
     //DataSource mappers
     /**
@@ -46,8 +48,7 @@ val appModule = module {
         named(ObserveConnectivityManagerSateUseCase::class.java.name)
     ) {
         ObserveConnectivityManagerSateUseCase(
-            repository = get(),
-            mapper = get(named(NetworkStateMapper::class.java.name))
+            repository = get()
         )
     }
 

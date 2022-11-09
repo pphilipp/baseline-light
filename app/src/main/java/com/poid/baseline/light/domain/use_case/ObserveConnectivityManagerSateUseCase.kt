@@ -9,11 +9,12 @@ import kotlinx.coroutines.flow.map
 
 class ObserveConnectivityManagerSateUseCase(
     private val repository: IRepository,
-    private val mapper: IDomainMapper<Boolean, ConnectionStateModel>
+//    private val mapper: IDomainMapper<Boolean, ConnectionStateModel>
 ) : IUseCase<Flow<ConnectionStateModel>, Nothing?> {
 
     override fun execute(params: Nothing?): Flow<ConnectionStateModel> =
-        repository.observeConnectivityState().map {
-            mapper.map(it)
-        }
+        repository.observeConnectivityState()
+//            .map {
+//            mapper.map(it)
+//        }
 }
