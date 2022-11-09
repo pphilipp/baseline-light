@@ -32,7 +32,6 @@ class SystemServicesDataSource(
         awaitClose {
             connectivityManager.unregisterNetworkCallback(callback)
         }
-
     }
 
     private fun getCurrentConnectivityState(
@@ -42,7 +41,6 @@ class SystemServicesDataSource(
             ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             ?: false
     }
-
 
     private fun networkCallback(
         callback: (Boolean) -> Unit,
